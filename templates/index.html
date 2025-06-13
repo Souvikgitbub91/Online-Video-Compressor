@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Online Video Compressor</title>
+</head>
+<body>
+    <h2>Upload a Video to Compress</h2>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" name="video" required>
+        <br><br>
+        <button type="submit">Compress Video</button>
+    </form>
+
+    <div id="download-link" style="display:none; margin-top:20px;"></div>
+
+    <script>
+        document.getElementById("upload-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const formData = new FormData(this);
+
+            const response = await fetch("/compress", {
+                method: "POST",
+                body: formData
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                document.getElementById("download-link").innerHTML =
+                    `<a href="${url}" download="compressed_video.mp4">Download Compressed Video</a>`;
+                document.getElementById("download-link").style.display = "block";
+            } else {
+                const error = await response.json();
+                alert("Error: " + error.error);
+            }
+        });
+    </script>
+</body>
+</html>
 
