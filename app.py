@@ -9,9 +9,13 @@ OUTPUT_FOLDER = "compressed"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
+from flask import Flask, request, jsonify, send_file, render_template
+# ... rest of your imports
+
 @app.route("/")
 def home():
-    return "Online Video Compressor is Running!"
+    return render_template("index.html")
+
 
 @app.route("/compress", methods=["POST"])
 def compress_video():
