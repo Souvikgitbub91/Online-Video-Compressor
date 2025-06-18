@@ -1,5 +1,0 @@
-flask
-moviepy==1.0.3
-imageio-ffmpeg
-werkzeug==2.3.7
-
