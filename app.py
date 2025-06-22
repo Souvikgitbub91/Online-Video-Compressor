@@ -12,7 +12,6 @@ def index():
             input_path = 'input.mp4'
             output_path = 'output.mp4'
             video_file.save(input_path)
-            # Simple FFmpeg command to compress (adjust as needed)
             subprocess.run(['ffmpeg', '-i', input_path, '-vcodec', 'libx264', '-crf', '28', output_path])
             return send_file(output_path, as_attachment=True)
     return '''
@@ -25,4 +24,4 @@ def index():
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port, debug=False)  # Disable debug mode
